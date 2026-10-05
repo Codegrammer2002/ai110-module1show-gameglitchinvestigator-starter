@@ -63,11 +63,21 @@ Yes. Claude wrote the test cases and organised them by the bug each one targets,
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
+Every time you click a button or type in a box, Streamlit re-runs the whole script from top to bottom, like pressing "run" on the file again. Normal variables are thrown away on each run, so anything the game must remember (the secret number, the score, the attempts used) has to be stored in `st.session_state`, which survives reruns. In this project the secret was only created once (`if "secret" not in st.session_state`), but nothing refreshed it when the difficulty changed or New Game was clicked, and some code ran before the guess was processed, so the screen showed old values. Putting all the reset logic in one `reset_game()` function, and filling the "Attempts left" text at the end of the script, fixed that.
+
 ---
 
 ## 5. Looking ahead: your developer habits
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
   - This could be a testing habit, a prompting strategy, or a way you used Git.
+
+Moving logic out of the UI file into plain functions so it can be tested with pytest, and writing one test per bug so a regression points at the exact thing that broke. I also want to keep making small commits after each fix.
+
 - What is one thing you would do differently next time you work with AI on a coding task?
+
+I would ask the AI to explain the cause of a bug before accepting a fix, and I would play the app myself after each change. This time I relied on pytest for the logic, but the bugs in the Streamlit script (New Game, state resets) need a manual run or an `AppTest` to be sure.
+
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+AI-written code can look clean and still be wrong in several places at once, with one bug hiding another (the string secret hid behind a `try/except` fallback). I now treat it like a teammate's first draft: read it, test it, and make the decisions myself.
