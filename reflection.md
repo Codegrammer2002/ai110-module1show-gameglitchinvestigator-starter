@@ -14,10 +14,9 @@ Document at least 3 bugs you found. Add rows as needed.
 
 | Input | Expected Behavior | Actual Behavior | Console Output / Error |
 |-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
-
+ 1. 53      Guess lower          Guess higher        n/a
+ 2. clicked new game | new game starts | nothing happens | n/a
+3. toaster messages are faulty
 ---
 
 ## 2. How did you use AI as a teammate?
